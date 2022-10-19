@@ -1,14 +1,17 @@
 #!/bin/bash
+vmname=$(hostname -f) #command to print the user hostname
+sysversion=$(uname -sr) #It will print the user system version
+Sysname=$(lsb_release -is) #command which used for print the operating system
+Address=$(hostname -I) #print the ip addresses for the user
+size=$(df -h | grep "/dev/sda3" | cut -c -23 | awk '{print $2}') #Command used to show the Root Filesystem Free Space
 
-#It will print fully-qualified domain name from command
-echo "FQDN: "  `hostname -f`
 
-#It will print the host's system information
-echo  "System Information:"
-hostnamectl
-
-#print the ip addresses has that are not on the 127 network
-echo "        " `hostname -I`
-
-#It will print the amount of space available in the root filesystem with human-friendly number
-echo `df -Th | grep -w /`
+cat<<EOF
+Report for pc200489792
+===============
+FQDN:$vmname
+Operating System name and version:$Sysname $sysversion
+IP Address:$Address
+Root Filesystem Free Space:$size
+===============
+EOF
